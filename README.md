@@ -2,6 +2,54 @@
 
 This project is a starter template for implementing the LINE Channel Access Token functionality using TypeScript, Node.js, and React with Vite. It includes both backend and frontend components to manage and display information about the different types of channel access tokens.
 
+## Channel Access Token Types
+
+LINE Platform provides four different types of channel access tokens, each designed for specific use cases and security requirements:
+
+### 1. Channel Access Token v2.1 (User-Specified Expiration)
+- **Validity Period**: Up to 30 days (customizable)
+- **Limit**: 30 tokens per channel
+- **Security**: Enhanced with JSON Web Token (JWT)
+- **Use Case**: Production applications requiring custom expiration periods
+- **Benefits**: Flexible expiration, enhanced security with JWT
+
+### 2. Stateless Channel Access Token
+- **Validity Period**: 15 minutes
+- **Limit**: Unlimited
+- **Revocation**: Cannot be revoked once issued
+- **Use Case**: Short-term operations, serverless functions, microservices
+- **Benefits**: No storage requirements, unlimited issuance
+
+### 3. Short-lived Channel Access Token
+- **Validity Period**: 30 days (fixed)
+- **Limit**: 30 tokens per channel
+- **Revocation**: Can be revoked
+- **Use Case**: Standard applications with moderate security requirements
+- **Benefits**: Balance between security and convenience
+
+### 4. Long-lived Channel Access Token
+- **Validity Period**: Indefinite (no expiration)
+- **Limit**: 1 token per channel
+- **Availability**: Messaging API channels only
+- **Use Case**: Simple applications, testing, development
+- **Benefits**: No expiration management required
+
+### Token Selection Guidelines
+
+| Use Case | Recommended Token Type | Reason |
+|----------|----------------------|---------|
+| Production web application | Channel Access Token v2.1 | Custom expiration, JWT security |
+| Serverless/Lambda functions | Stateless | Short-lived, no storage needed |
+| Mobile applications | Short-lived | Good balance of security and usability |
+| Development/Testing | Long-lived | Simple setup, no expiration management |
+| High-security applications | Channel Access Token v2.1 | JWT-based, customizable validity |
+
+### Important Security Notes
+- **Reuse tokens**: The same token can be used multiple times within its validity period
+- **Don't over-issue**: Avoid issuing new tokens for each API call (except stateless)
+- **Revoke compromised tokens**: Immediately revoke any suspected compromised tokens
+- **Monitor expiration**: Set up automatic renewal before tokens expire
+
 ## Project Structure
 
 ```
